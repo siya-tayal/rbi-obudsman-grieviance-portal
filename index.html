@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Complaint Management System — Prototype</title>
+<style>
+  :root {
+    --brand: #0b3d78;
+    --brand-dark: #072a54;
+    --accent: #c25e0b;
+    --surface: #ffffff;
+    --surface-2: #f4f6f9;
+    --surface-3: #eef1f5;
+    --border: #d8dee6;
+    --text-primary: #1a1f27;
+    --text-secondary: #5b6572;
+    --text-muted: #8993a1;
+    --success: #17803d;
+    --success-bg: #e6f4ea;
+    --danger: #c0342c;
+    --danger-bg: #fbe9e7;
+    --info: #1d5fbf;
+    --info-bg: #e8f0fd;
+    --warning: #b6660a;
+    --warning-bg: #fdf1e0;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--surface-2);
+    color: var(--text-primary);
+    font-size: 14px;
+  }
+
+  h1, h2, h3 { font-size: 16px; margin: 0; }
+
+  .demo-ribbon {
+    background: var(--accent);
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    padding: 6px 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .topbar {
+    background: var(--brand);
+    color: #fff;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .topbar .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .topbar .emblem {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--brand-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    border: 2px solid #ffffff55;
+  }
+
+  .topbar .titles h1 { font-size: 16px; font-weight: 600; }
+  .topbar .titles p { margin: 2px 0 0; font-size: 12px; color: #cfe0f5; }
+
+  .topbar .session {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 13px;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 4px;
+    padding: 9px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-primary:hover { background: var(--brand-dark); }
+  .btn-primary:disabled { background: #9fb3c8; cursor: not-allowed; }
+
+  .btn-ghost {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #ffffff66;
+  }
+  .btn-ghost:hover { background: #ffffff22; }
+
+  .btn-link {
+    background: none;
+    color: var(--brand);
+    padding: 0;
+    font-size: 13px;
+    text-decoration: underline;
+  }
+
+  .page { max-width: 1040px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* ---------- Login ---------- */
+  .login-wrap {
+    min-height: calc(100vh - 90px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .login-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 420px;
+    padding: 28px 28px 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .login-card h2 { font-size: 18px; margin-bottom: 4px; }
+  .login-card .sub { color: var(--text-secondary); font-size: 13px; margin-bottom: 20px; }
+
+  .tabs {
+    display: flex;
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 8px;
+    font-size: 13px;
+    background: var(--surface-3);
+    color: var(--text-secondary);
+    cursor: pointer;
+    border: none;
+  }
+
+  .tab.active { background: var(--brand); color: #fff; }
+
+  label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  input[type="text"]:focus { outline: 2px solid var(--info); outline-offset: 0; }
+
+  .hint { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+
+  .error-text { font-size: 12px; color: var(--danger); margin-bottom: 12px; }
+
+  .digilocker-box {
+    text-align: center;
+    padding: 20px 10px;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .digilocker-box .dl-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px; height: 44px;
+    border-radius: 8px;
+    background: #00458b;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .digilocker-box p { font-size: 12px; color: var(--text-secondary); margin: 6px 0 0; }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid #ffffff66;
+    border-top-color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    animation: spin 0.7s linear infinite;
+    vertical-align: -3px;
+    margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .disclaimer {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  /* ---------- Dashboard ---------- */
+  .dash-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .dash-header h2 { font-size: 20px; }
+  .dash-sub { color: var(--text-secondary); font-size: 13px; margin-bottom: 24px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+  }
+  .card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .crn { font-size: 12px; color: var(--text-muted); font-family: "SFMono-Regular", Menlo, monospace; }
+
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .badge-progress { background: var(--info-bg); color: var(--info); }
+  .badge-resolved { background: var(--success-bg); color: var(--success); }
+  .badge-rejected { background: var(--danger-bg); color: var(--danger); }
+
+  .card h3 { font-size: 15px; margin-bottom: 4px; }
+  .card .issue { font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4; }
+  .card .filed { font-size: 12px; color: var(--text-muted); }
+  .card .view-link { font-size: 12px; color: var(--brand); font-weight: 600; margin-top: 10px; }
+
+  /* ---------- Detail ---------- */
+  .back-btn {
+    background: none; border: none; color: var(--brand);
+    font-size: 13px; cursor: pointer; padding: 0; margin-bottom: 18px;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+
+  .detail-head { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+  .detail-head .crn-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .detail-head h2 { font-size: 18px; }
+  .detail-head .issue { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
+
+  .timeline-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 24px 20px; margin-bottom: 20px; }
+  .timeline-card h3 { margin-bottom: 20px; }
+
+  .t-item { display: flex; gap: 14px; position: relative; padding-bottom: 26px; }
+  .t-item:last-child { padding-bottom: 0; }
+
+  .t-marker-col { display: flex; flex-direction: column; align-items: center; }
+  .t-circle {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .t-circle.complete { background: var(--success); }
+  .t-circle.in_progress { background: var(--info); }
+  .t-circle.pending { background: var(--surface-3); color: var(--text-muted); border: 1px solid var(--border); }
+  .t-circle.rejected { background: var(--danger); }
+  .t-circle.skipped { background: var(--surface-3); color: var(--text-muted); border: 1px solid var(--border); }
+
+  .t-line { flex: 1; width: 2px; min-height: 20px; background: var(--border); margin-top: 4px; }
+  .t-line.complete { background: var(--success); }
+
+  .t-body { flex: 1; }
+  .t-body .t-label { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .t-body .t-date { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .t-body .t-detail { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+  .t-body .t-days { display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 600; color: var(--info); background: var(--info-bg); padding: 2px 8px; border-radius: 10px; }
+
+  .status-card { border-radius: 8px; padding: 20px; }
+  .status-card.info { background: var(--info-bg); border: 0.5px solid #b7cff2; }
+  .status-card.success { background: var(--success-bg); border: 0.5px solid #b7e0c3; }
+  .status-card.danger { background: var(--danger-bg); border: 0.5px solid #f0c2bd; }
+
+  .status-card .label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 6px; }
+  .status-card.info .label { color: var(--info); }
+  .status-card.success .label { color: var(--success); }
+  .status-card.danger .label { color: var(--danger); }
+
+  .status-card .main-text { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .status-card .sub-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .status-card .fix-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-top: 10px; padding-top: 10px; border-top: 0.5px solid rgba(0,0,0,0.08); }
+  .status-card .fix-text b { color: var(--text-primary); }
+
+  footer.site-footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/plain" id="app-source">
+const { useState } = React;
+
+const COMPLAINTS = [
+  {
+    crn: "CMS-2026-07-00451",
+    entityName: "HDFC Bank",
+    issue: "Unauthorized debit of ₹8,500 from savings account",
+    filedDate: "2026-07-01",
+    stage: "in_progress",
+    timeline: [
+      { label: "Complaint Filed", date: "2026-07-01", status: "complete", detail: "Submitted via Complaint Management System portal." },
+      { label: "Forwarded to Entity", date: "2026-07-03", status: "complete", detail: "Sent to HDFC Bank for response." },
+      { label: "Entity Response Received", date: "2026-07-08", status: "complete", detail: "Bank disputed the unauthorized-debit claim." },
+      { label: "Ombudsman Review", date: "2026-07-11", status: "in_progress", detail: "Case assigned to Ombudsman office for examination.", daysLeft: 79 },
+      { label: "Hearing / Decision", date: null, status: "pending", detail: "Awaiting hearing schedule." },
+      { label: "Resolution", date: null, status: "pending", detail: "Award or closure order to be issued." }
+    ],
+    nextMilestone: "Awaiting Ombudsman hearing schedule",
+    deadlineNote: "90-day disposal target: 2026-09-29",
+    statusCard: { type: "info", label: "In Progress", main: "Awaiting Ombudsman hearing schedule", sub: "Your case is under active review. The Ombudsman must dispose of complaints within 90 days of filing — 79 days remain." }
+  },
+  {
+    crn: "CMS-2026-05-00298",
+    entityName: "ICICI Bank",
+    issue: "Wrongful levy of credit card annual fee despite fee-waiver offer",
+    filedDate: "2026-05-10",
+    stage: "resolved",
+    timeline: [
+      { label: "Complaint Filed", date: "2026-05-10", status: "complete", detail: "Submitted via Complaint Management System portal." },
+      { label: "Forwarded to Entity", date: "2026-05-12", status: "complete", detail: "Sent to ICICI Bank for response." },
+      { label: "Entity Response Received", date: "2026-05-20", status: "complete", detail: "Bank acknowledged fee-waiver offer was applicable." },
+      { label: "Ombudsman Review", date: "2026-06-15", status: "complete", detail: "Reviewed transaction history and fee-waiver terms." },
+      { label: "Hearing / Decision", date: "2026-07-01", status: "complete", detail: "Award of ₹1,180 (fee + interest) issued in your favor." },
+      { label: "Resolution", date: "2026-07-04", status: "in_progress", detail: "Awaiting your acceptance of the award.", daysLeft: 22 }
+    ],
+    nextMilestone: "Accept award before deadline",
+    deadlineNote: "Acceptance deadline: 2026-08-04",
+    awardAmount: 1180,
+    statusCard: { type: "success", label: "Resolved", main: "Award of ₹1,180 issued in your favor", sub: "You must communicate acceptance of the award to the Ombudsman office on or before 2026-08-04, after which the award becomes payable by the bank." }
+  },
+  {
+    crn: "CMS-2026-04-00117",
+    entityName: "Paytm Payments Bank",
+    issue: "Delayed refund for failed UPI transaction of ₹2,300",
+    filedDate: "2026-04-01",
+    stage: "rejected",
+    timeline: [
+      { label: "Complaint Filed", date: "2026-04-01", status: "complete", detail: "Submitted via Complaint Management System portal." },
+      { label: "Forwarded to Entity", date: "2026-04-03", status: "complete", detail: "Sent to Paytm Payments Bank for response." },
+      { label: "Maintainability Check", date: "2026-04-10", status: "rejected", detail: "Complaint found not maintainable at intake review." },
+      { label: "Ombudsman Review", date: null, status: "skipped", detail: "Not reached — complaint closed at maintainability stage." },
+      { label: "Hearing / Decision", date: null, status: "skipped", detail: "Not applicable." },
+      { label: "Resolution", date: null, status: "skipped", detail: "Not applicable." }
+    ],
+    nextMilestone: "File a fresh complaint if eligible",
+    statusCard: {
+      type: "danger",
+      label: "Rejected",
+      main: "Not maintainable",
+      sub: "Reason: You approached the Ombudsman 95 days after first writing to the bank, exceeding the 30-day minimum wait combined with the 1-year filing window under Clause 10 of the RBI Integrated Ombudsman Scheme, 2021.",
+      fix: "You can file a fresh complaint if the underlying issue is still unresolved and within the 1-year window from the bank's final reply. If the delay was due to genuine hardship (e.g. hospitalization), you may request condonation of delay with supporting documents."
+    }
+  }
+];
+
+function maskAadhar(a) {
+  return "XXXX-XXXX-" + a.slice(-4).padStart(4, "0");
+}
+
+function badgeClass(stage) {
+  if (stage === "resolved") return "badge badge-resolved";
+  if (stage === "rejected") return "badge badge-rejected";
+  return "badge badge-progress";
+}
+function badgeLabel(stage) {
+  if (stage === "resolved") return "Resolved";
+  if (stage === "rejected") return "Rejected";
+  return "In Progress";
+}
+
+function TopBar({ view, aadhar, onLogout }) {
+  return (
+    <div className="topbar">
+      <div className="brand">
+        <div className="emblem">CMS</div>
+        <div className="titles">
+          <h1>Complaint Management System</h1>
+          <p>Integrated Ombudsman Scheme — UX Prototype</p>
+        </div>
+      </div>
+      {view !== "login" && (
+        <div className="session">
+          <span>Aadhar: {maskAadhar(aadhar)}</span>
+          <button className="btn btn-ghost" onClick={onLogout}>Logout</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function LoginPage({ onLogin }) {
+  const [tab, setTab] = useState("aadhar");
+  const [aadharInput, setAadharInput] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [dlLoading, setDlLoading] = useState(false);
+  const [dlStep, setDlStep] = useState(0); // 0 idle, 1 redirecting, 2 fetched
+
+  function verifyAadhar() {
+    setError("");
+    if (aadharInput.trim() !== "1234") {
+      setError("Demo mode: enter Aadhar 1234 to explore the prototype.");
+      return;
+    }
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      onLogin(aadharInput.trim());
+    }, 700);
+  }
+
+  function verifyDigiLocker() {
+    setDlLoading(true);
+    setDlStep(1);
+    setTimeout(() => {
+      setDlStep(2);
+      setTimeout(() => {
+        setDlLoading(false);
+        onLogin("1234");
+      }, 700);
+    }, 900);
+  }
+
+  return (
+    <div className="login-wrap">
+      <div className="login-card">
+        <h2>Login to your dashboard</h2>
+        <p className="sub">Verify your identity to view your complaints.</p>
+
+        <div className="tabs">
+          <button className={"tab " + (tab === "aadhar" ? "active" : "")} onClick={() => setTab("aadhar")}>Verify with Aadhar</button>
+          <button className={"tab " + (tab === "digilocker" ? "active" : "")} onClick={() => setTab("digilocker")}>Verify with DigiLocker</button>
+        </div>
+
+        {tab === "aadhar" && (
+          <div>
+            <label htmlFor="aadhar">Aadhar Number</label>
+            <input
+              id="aadhar"
+              type="text"
+              placeholder="Enter 12-digit Aadhar (Demo: 1234)"
+              value={aadharInput}
+              onChange={(e) => setAadharInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && verifyAadhar()}
+            />
+            <p className="hint">No OTP required — single-step identity verification.</p>
+            {error && <p className="error-text">{error}</p>}
+            <button className="btn btn-primary" style={{ width: "100%" }} onClick={verifyAadhar} disabled={loading}>
+              {loading && <span className="spinner"></span>}
+              {loading ? "Verifying..." : "Verify with Aadhar"}
+            </button>
+          </div>
+        )}
+
+        {tab === "digilocker" && (
+          <div>
+            <div className="digilocker-box">
+              <div className="dl-logo">DL</div>
+              <div>
+                {dlStep === 0 && <p>Fetch your verified identity directly from DigiLocker.</p>}
+                {dlStep === 1 && <p><span className="spinner" style={{ borderTopColor: "var(--brand)", borderColor: "#0b3d7833" }}></span>Redirecting to DigiLocker...</p>}
+                {dlStep === 2 && <p style={{ color: "var(--success)", fontWeight: 600 }}>✓ Identity fetched from DigiLocker</p>}
+              </div>
+            </div>
+            <button className="btn btn-primary" style={{ width: "100%" }} onClick={verifyDigiLocker} disabled={dlLoading}>
+              {dlLoading && <span className="spinner"></span>}
+              {dlLoading ? "Connecting..." : "Verify with DigiLocker"}
+            </button>
+          </div>
+        )}
+
+        <p className="disclaimer">
+          This is a simulated verification flow for a UX prototype. No real Aadhar or DigiLocker data is transmitted, stored, or verified. This site is not affiliated with, and does not represent, the Reserve Bank of India, UIDAI, or the National e-Governance Division.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function Dashboard({ aadhar, onOpen }) {
+  return (
+    <div className="page">
+      <div className="dash-header">
+        <h2>Your Complaints</h2>
+      </div>
+      <p className="dash-sub">{COMPLAINTS.length} complaints linked to Aadhar {maskAadhar(aadhar)}</p>
+      <div className="grid">
+        {COMPLAINTS.map((c) => (
+          <div className="card" key={c.crn} onClick={() => onOpen(c)}>
+            <div className="card-top">
+              <span className="crn">{c.crn}</span>
+              <span className={badgeClass(c.stage)}>{badgeLabel(c.stage)}</span>
+            </div>
+            <h3>{c.entityName}</h3>
+            <p className="issue">{c.issue}</p>
+            <p className="filed">Filed on {c.filedDate}</p>
+            <p className="view-link">View Details →</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Timeline({ items }) {
+  return (
+    <div className="timeline-card">
+      <h3>Complaint Timeline</h3>
+      {items.map((item, i) => (
+        <div className="t-item" key={i}>
+          <div className="t-marker-col">
+            <div className={"t-circle " + item.status}>
+              {item.status === "complete" && "✓"}
+              {item.status === "in_progress" && "◐"}
+              {item.status === "rejected" && "✕"}
+              {item.status === "pending" && (i + 1)}
+              {item.status === "skipped" && "–"}
+            </div>
+            {i < items.length - 1 && <div className={"t-line " + (item.status === "complete" ? "complete" : "")}></div>}
+          </div>
+          <div className="t-body">
+            <div className="t-label">{item.label}</div>
+            <div className="t-date">{item.date || "—"}</div>
+            <div className="t-detail">{item.detail}</div>
+            {item.daysLeft != null && <div className="t-days">{item.daysLeft} days remaining</div>}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function StatusCard({ sc }) {
+  return (
+    <div className={"status-card " + sc.type}>
+      <div className="label">{sc.label}</div>
+      <div className="main-text">{sc.main}</div>
+      <div className="sub-text">{sc.sub}</div>
+      {sc.fix && (
+        <div className="fix-text">
+          <b>How to fix:</b> {sc.fix}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ComplaintDetail({ complaint, onBack }) {
+  return (
+    <div className="page">
+      <button className="back-btn" onClick={onBack}>← Back to Dashboard</button>
+
+      <div className="detail-head">
+        <div className="crn-row">
+          <h2>{complaint.crn}</h2>
+          <span className={badgeClass(complaint.stage)}>{badgeLabel(complaint.stage)}</span>
+        </div>
+        <p className="issue"><b>{complaint.entityName}</b> — {complaint.issue}</p>
+        {complaint.deadlineNote && <p className="issue">{complaint.deadlineNote}</p>}
+      </div>
+
+      <Timeline items={complaint.timeline} />
+      <StatusCard sc={complaint.statusCard} />
+    </div>
+  );
+}
+
+function App() {
+  const [view, setView] = useState("login");
+  const [aadhar, setAadhar] = useState("");
+  const [selected, setSelected] = useState(null);
+
+  function handleLogin(a) {
+    setAadhar(a);
+    setView("dashboard");
+  }
+  function handleLogout() {
+    setAadhar("");
+    setSelected(null);
+    setView("login");
+  }
+  function openComplaint(c) {
+    setSelected(c);
+    setView("detail");
+  }
+  function backToDashboard() {
+    setSelected(null);
+    setView("dashboard");
+  }
+
+  return (
+    <div>
+      <div className="demo-ribbon">UX PROTOTYPE — NOT AN OFFICIAL RBI WEBSITE — ALL DATA IS FICTITIOUS</div>
+      <TopBar view={view} aadhar={aadhar} onLogout={handleLogout} />
+      {view === "login" && <LoginPage onLogin={handleLogin} />}
+      {view === "dashboard" && <Dashboard aadhar={aadhar} onOpen={openComplaint} />}
+      {view === "detail" && selected && <ComplaintDetail complaint={selected} onBack={backToDashboard} />}
+      <footer className="site-footer">Clickable UX prototype for stakeholder review · Not affiliated with RBI, UIDAI or DigiLocker · All complaint data is fictitious</footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+<script>
+  var src = document.getElementById("app-source").textContent;
+  var out = Babel.transform(src, { presets: [["react", { runtime: "classic" }]] }).code;
+  (0, eval)(out);
+</script>
+</body>
+</html>
