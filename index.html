@@ -217,7 +217,7 @@
   }
 
   /* ---------- Dashboard ---------- */
-  .dash-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
   .dash-header h2 { font-size: 20px; }
   .dash-sub { color: var(--text-secondary); font-size: 13px; margin-bottom: 24px; }
 
@@ -318,6 +318,94 @@
     color: var(--text-muted);
     padding: 20px;
   }
+
+  /* ---------- Secondary Nav ---------- */
+  .secondary-nav {
+    background: var(--surface);
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    gap: 4px;
+    padding: 0 24px;
+    overflow-x: auto;
+  }
+  .secondary-nav button {
+    background: none;
+    border: none;
+    padding: 13px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .secondary-nav button:hover { color: var(--brand); }
+  .secondary-nav button.active { color: var(--brand); border-bottom-color: var(--accent); font-weight: 600; }
+
+  /* ---------- Forms ---------- */
+  .form-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 24px; margin-bottom: 20px; }
+  .form-section { margin-bottom: 26px; }
+  .form-section:last-child { margin-bottom: 0; }
+  .form-section h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--brand); padding-bottom: 8px; margin-bottom: 16px; border-bottom: 0.5px solid var(--border); }
+  .form-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .form-group { flex: 1; min-width: 220px; margin-bottom: 16px; }
+  .form-group.full { flex-basis: 100%; }
+  label.required::after { content: " *"; color: var(--danger); }
+  select, textarea, input[type="date"], input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    margin-bottom: 6px;
+  }
+  select:focus, textarea:focus, input:focus { outline: 2px solid var(--info); outline-offset: 0; }
+  input:disabled { background: var(--surface-3); color: var(--text-muted); }
+  textarea { resize: vertical; min-height: 90px; }
+  .radio-row { display: flex; gap: 20px; padding: 8px 0; }
+  .radio-option { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-primary); cursor: pointer; }
+  .file-drop { border: 1px dashed var(--border); border-radius: 6px; padding: 18px; text-align: center; color: var(--text-muted); font-size: 12px; cursor: pointer; background: var(--surface-2); }
+  .file-drop:hover { border-color: var(--brand); }
+  .check-row { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--text-secondary); margin: 16px 0; }
+  .check-row input { margin-top: 2px; }
+  .form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px; }
+  .warning-text { font-size: 12px; color: var(--warning); background: var(--warning-bg); border: 0.5px solid #f0dcb0; border-radius: 4px; padding: 8px 10px; margin-bottom: 6px; }
+
+  .success-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 48px 24px; text-align: center; }
+  .success-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--success-bg); color: var(--success); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 18px; }
+  .crn-display { font-family: "SFMono-Regular", Menlo, monospace; font-size: 20px; font-weight: 700; color: var(--brand); margin: 12px 0; }
+  .success-card p { color: var(--text-secondary); font-size: 13px; max-width: 460px; margin: 0 auto 20px; line-height: 1.5; }
+
+  /* ---------- Rules & Regulations ---------- */
+  .rules-intro { color: var(--text-secondary); font-size: 13px; max-width: 720px; margin-bottom: 24px; line-height: 1.5; }
+  .section-title { font-size: 16px; margin: 28px 0 14px; }
+  .section-title:first-of-type { margin-top: 0; }
+
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+  .info-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 16px; }
+  .info-card .icn { width: 34px; height: 34px; border-radius: 8px; background: var(--info-bg); display: flex; align-items: center; justify-content: center; font-size: 15px; margin-bottom: 10px; }
+  .info-card h4 { font-size: 13px; margin-bottom: 6px; }
+  .info-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin: 0; }
+
+  .accordion { border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--surface); }
+  .accordion-item + .accordion-item { border-top: 0.5px solid var(--border); }
+  .accordion-head { width: 100%; text-align: left; background: none; border: none; padding: 14px 16px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text-primary); }
+  .accordion-head .chev { color: var(--text-muted); font-size: 11px; }
+  .accordion-body { padding: 0 16px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .accordion-body ul { margin: 6px 0; padding-left: 18px; }
+  .accordion-body li { margin-bottom: 4px; }
+
+  .assist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .assist-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .assist-card .thumb { height: 100px; background: linear-gradient(135deg, var(--brand), var(--brand-dark)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 26px; }
+  .assist-card .cap { padding: 10px 12px; font-size: 12px; font-weight: 500; }
+
+  .material-list { list-style: none; padding: 0; margin: 0; background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; }
+  .material-list li { display: flex; align-items: center; gap: 10px; padding: 12px 16px; font-size: 13px; }
+  .material-list li + li { border-top: 0.5px solid var(--border); }
+  .material-list .ico { color: var(--accent); font-size: 14px; }
 </style>
 </head>
 <body>
@@ -331,7 +419,7 @@
 <script type="text/plain" id="app-source">
 const { useState } = React;
 
-const COMPLAINTS = [
+const INITIAL_COMPLAINTS = [
   {
     crn: "CMS-2026-07-00451",
     entityName: "HDFC Bank",
@@ -394,6 +482,38 @@ const COMPLAINTS = [
   }
 ];
 
+const ENTITY_CATEGORIES = [
+  "Scheduled Commercial Bank",
+  "Co-operative Bank",
+  "Non-Banking Financial Company (NBFC)",
+  "Payment System Participant (UPI App / Wallet / Prepaid Card)",
+  "Credit Information Company (CIC)"
+];
+
+const ENTITY_NAMES = [
+  "HDFC Bank", "ICICI Bank", "State Bank of India", "Axis Bank", "Kotak Mahindra Bank",
+  "Paytm Payments Bank", "PhonePe", "Bajaj Finance", "CIBIL (TransUnion)", "Other"
+];
+
+const COMPLAINT_GROUNDS = [
+  "ATM / Debit Card",
+  "Credit Card",
+  "Internet / Mobile / Digital Banking",
+  "UPI / Payment System Failure",
+  "Loans and Advances",
+  "Deposit Accounts (Savings / Current / FD)",
+  "Remittances (NEFT / RTGS / IMPS)",
+  "Mis-selling of Third-Party Products",
+  "Non-adherence to Fair Practices Code",
+  "Pension Related",
+  "Other"
+];
+
+function generateCRN() {
+  const n = Math.floor(Math.random() * 99999).toString().padStart(5, "0");
+  return "CMS-2026-07-" + n;
+}
+
 function maskAadhar(a) {
   return "XXXX-XXXX-" + a.slice(-4).padStart(4, "0");
 }
@@ -425,6 +545,24 @@ function TopBar({ view, aadhar, onLogout }) {
           <button className="btn btn-ghost" onClick={onLogout}>Logout</button>
         </div>
       )}
+    </div>
+  );
+}
+
+function SecondaryNav({ view, onNavigate }) {
+  const items = [
+    { key: "dashboard", label: "Track Your Complaint" },
+    { key: "new-complaint", label: "File a Complaint" },
+    { key: "rules", label: "Rules & Regulations" }
+  ];
+  const active = view === "detail" ? "dashboard" : view;
+  return (
+    <div className="secondary-nav">
+      {items.map((it) => (
+        <button key={it.key} className={active === it.key ? "active" : ""} onClick={() => onNavigate(it.key)}>
+          {it.label}
+        </button>
+      ))}
     </div>
   );
 }
@@ -518,15 +656,16 @@ function LoginPage({ onLogin }) {
   );
 }
 
-function Dashboard({ aadhar, onOpen }) {
+function Dashboard({ aadhar, complaints, onOpen, onNewComplaint }) {
   return (
     <div className="page">
       <div className="dash-header">
         <h2>Your Complaints</h2>
+        <button className="btn btn-primary" onClick={onNewComplaint}>+ File a Complaint</button>
       </div>
-      <p className="dash-sub">{COMPLAINTS.length} complaints linked to Aadhar {maskAadhar(aadhar)}</p>
+      <p className="dash-sub">{complaints.length} complaints linked to Aadhar {maskAadhar(aadhar)}</p>
       <div className="grid">
-        {COMPLAINTS.map((c) => (
+        {complaints.map((c) => (
           <div className="card" key={c.crn} onClick={() => onOpen(c)}>
             <div className="card-top">
               <span className="crn">{c.crn}</span>
@@ -606,10 +745,373 @@ function ComplaintDetail({ complaint, onBack }) {
   );
 }
 
+function NewComplaintForm({ aadhar, onSubmitted, onCancel }) {
+  const [form, setForm] = useState({
+    fullName: "", mobile: "", email: "",
+    addressLine: "", city: "", state: "", pincode: "",
+    entityCategory: "", entityName: "", branch: "",
+    complaintCategory: "", description: "", amount: "", incidentDate: "",
+    priorComplaint: "yes", priorComplaintDate: "", entityResponseStatus: "",
+    declaration: false
+  });
+  const [error, setError] = useState("");
+  const [submittedCrn, setSubmittedCrn] = useState(null);
+
+  function update(field, value) {
+    setForm((f) => ({ ...f, [field]: value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+    if (!form.fullName || !form.mobile || !form.entityCategory || !form.entityName || !form.complaintCategory || !form.description || !form.incidentDate) {
+      setError("Please fill in all required fields marked with *.");
+      return;
+    }
+    if (form.priorComplaint === "no") {
+      setError("You must first complain to the entity and allow at least 30 days for a response (or receive an unsatisfactory reply) before the Ombudsman can accept this complaint.");
+      return;
+    }
+    if (!form.declaration) {
+      setError("Please confirm the declaration before submitting.");
+      return;
+    }
+    const crn = generateCRN();
+    const newComplaint = {
+      crn,
+      entityName: form.entityName,
+      issue: form.description.length > 100 ? form.description.slice(0, 100) + "…" : form.description,
+      filedDate: "2026-07-13",
+      stage: "in_progress",
+      timeline: [
+        { label: "Complaint Filed", date: "2026-07-13", status: "complete", detail: "Submitted via Complaint Management System portal." },
+        { label: "Forwarded to Entity", date: null, status: "in_progress", detail: "Awaiting forwarding to " + form.entityName + ".", daysLeft: 90 },
+        { label: "Entity Response Received", date: null, status: "pending", detail: "Entity has 30 days to respond." },
+        { label: "Ombudsman Review", date: null, status: "pending", detail: "Not yet started." },
+        { label: "Hearing / Decision", date: null, status: "pending", detail: "Not yet started." },
+        { label: "Resolution", date: null, status: "pending", detail: "Award or closure order to be issued." }
+      ],
+      nextMilestone: "Awaiting acknowledgment from " + form.entityName,
+      deadlineNote: "90-day disposal target: 2026-10-11",
+      statusCard: { type: "info", label: "In Progress", main: "Complaint registered successfully", sub: "Your complaint has been submitted and will be forwarded to " + form.entityName + ". They are required to respond within 30 days." }
+    };
+    onSubmitted(newComplaint);
+    setSubmittedCrn(crn);
+  }
+
+  if (submittedCrn) {
+    return (
+      <div className="page">
+        <div className="success-card">
+          <div className="success-icon">✓</div>
+          <h2>Complaint Registered Successfully</h2>
+          <p>Your complaint has been submitted. Please save your Complaint Reference Number (CRN) for tracking — the entity has been notified and must respond within 30 days.</p>
+          <div className="crn-display">{submittedCrn}</div>
+          <div className="form-actions" style={{ justifyContent: "center" }}>
+            <button className="btn btn-primary" onClick={onCancel}>Go to Dashboard</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="page">
+      <h2 style={{ marginBottom: 4 }}>File a New Complaint</h2>
+      <p className="dash-sub">All fields marked * are required.</p>
+
+      <form className="form-card" onSubmit={handleSubmit}>
+        <div className="form-section">
+          <h3>Complainant Details</h3>
+          <div className="form-row">
+            <div className="form-group">
+              <label className="required">Full Name</label>
+              <input type="text" value={form.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder="As per Aadhar" />
+            </div>
+            <div className="form-group">
+              <label>Aadhar Number</label>
+              <input type="text" value={maskAadhar(aadhar)} disabled />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label className="required">Mobile Number</label>
+              <input type="text" value={form.mobile} onChange={(e) => update("mobile", e.target.value)} placeholder="10-digit mobile number" />
+            </div>
+            <div className="form-group">
+              <label>Email Address</label>
+              <input type="text" value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="you@example.com" />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group full">
+              <label>Address</label>
+              <input type="text" value={form.addressLine} onChange={(e) => update("addressLine", e.target.value)} placeholder="House / Street / Locality" />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>City</label>
+              <input type="text" value={form.city} onChange={(e) => update("city", e.target.value)} />
+            </div>
+            <div className="form-group">
+              <label>State</label>
+              <input type="text" value={form.state} onChange={(e) => update("state", e.target.value)} />
+            </div>
+            <div className="form-group">
+              <label>PIN Code</label>
+              <input type="text" value={form.pincode} onChange={(e) => update("pincode", e.target.value)} />
+            </div>
+          </div>
+        </div>
+
+        <div className="form-section">
+          <h3>Entity Details</h3>
+          <div className="form-row">
+            <div className="form-group">
+              <label className="required">Category of Entity</label>
+              <select value={form.entityCategory} onChange={(e) => update("entityCategory", e.target.value)}>
+                <option value="">Select category</option>
+                {ENTITY_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+            <div className="form-group">
+              <label className="required">Name of Entity</label>
+              <select value={form.entityName} onChange={(e) => update("entityName", e.target.value)}>
+                <option value="">Select entity</option>
+                {ENTITY_NAMES.map((n) => <option key={n} value={n}>{n}</option>)}
+              </select>
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group full">
+              <label>Branch / Office (optional)</label>
+              <input type="text" value={form.branch} onChange={(e) => update("branch", e.target.value)} placeholder="e.g. Andheri West Branch" />
+            </div>
+          </div>
+        </div>
+
+        <div className="form-section">
+          <h3>Complaint Details</h3>
+          <div className="form-row">
+            <div className="form-group">
+              <label className="required">Nature of Complaint</label>
+              <select value={form.complaintCategory} onChange={(e) => update("complaintCategory", e.target.value)}>
+                <option value="">Select ground</option>
+                {COMPLAINT_GROUNDS.map((g) => <option key={g} value={g}>{g}</option>)}
+              </select>
+            </div>
+            <div className="form-group">
+              <label className="required">Date of Incident</label>
+              <input type="date" value={form.incidentDate} onChange={(e) => update("incidentDate", e.target.value)} />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group full">
+              <label className="required">Complaint Description</label>
+              <textarea value={form.description} onChange={(e) => update("description", e.target.value)} placeholder="Describe what happened, including dates, amounts, and reference numbers."></textarea>
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Amount Involved (₹)</label>
+              <input type="number" value={form.amount} onChange={(e) => update("amount", e.target.value)} placeholder="0" />
+            </div>
+          </div>
+        </div>
+
+        <div className="form-section">
+          <h3>Prior Complaint to Entity</h3>
+          <label>Have you already complained to the entity about this issue?</label>
+          <div className="radio-row">
+            <label className="radio-option">
+              <input type="radio" name="prior" checked={form.priorComplaint === "yes"} onChange={() => update("priorComplaint", "yes")} /> Yes
+            </label>
+            <label className="radio-option">
+              <input type="radio" name="prior" checked={form.priorComplaint === "no"} onChange={() => update("priorComplaint", "no")} /> No
+            </label>
+          </div>
+          {form.priorComplaint === "no" && (
+            <p className="warning-text">The Ombudsman can only accept complaints after you have first approached the entity and either received an unsatisfactory reply or waited 30 days without a response.</p>
+          )}
+          {form.priorComplaint === "yes" && (
+            <div className="form-row">
+              <div className="form-group">
+                <label>Date Complained to Entity</label>
+                <input type="date" value={form.priorComplaintDate} onChange={(e) => update("priorComplaintDate", e.target.value)} />
+              </div>
+              <div className="form-group">
+                <label>Entity's Response</label>
+                <select value={form.entityResponseStatus} onChange={(e) => update("entityResponseStatus", e.target.value)}>
+                  <option value="">Select status</option>
+                  <option value="no_response">No response within 30 days</option>
+                  <option value="unsatisfactory">Received reply — unsatisfactory</option>
+                  <option value="rejected">Complaint rejected by entity</option>
+                </select>
+              </div>
+            </div>
+          )}
+          <div className="form-group full">
+            <label>Supporting Documents (optional)</label>
+            <div className="file-drop">Click to attach entity complaint copy, statements, or screenshots (demo only — no file is uploaded)</div>
+          </div>
+        </div>
+
+        <label className="check-row">
+          <input type="checkbox" checked={form.declaration} onChange={(e) => update("declaration", e.target.checked)} />
+          I declare that the information provided above is true to the best of my knowledge, and that I have not filed the same complaint with any other forum.
+        </label>
+
+        {error && <p className="error-text">{error}</p>}
+
+        <div className="form-actions">
+          <button type="button" className="btn" style={{ background: "var(--surface-3)", color: "var(--text-secondary)" }} onClick={onCancel}>Cancel</button>
+          <button type="submit" className="btn btn-primary">Submit Complaint</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+function RulesPage() {
+  const [openIdx, setOpenIdx] = useState(0);
+
+  const sections = [
+    {
+      title: "Filing Window & Prerequisites",
+      body: (
+        <div>
+          <p>Before approaching the Ombudsman, you must first complain in writing to the regulated entity.</p>
+          <ul>
+            <li>Wait at least 30 days for the entity to respond.</li>
+            <li>If unresolved or unsatisfactory, file with the Ombudsman within 1 year of the entity's reply (or 1 year + 30 days from your original complaint if there is no reply).</li>
+            <li>Complaints already pending before a court, tribunal, or arbitrator on the same cause of action are not maintainable.</li>
+          </ul>
+        </div>
+      )
+    },
+    {
+      title: "Grounds for Complaint",
+      body: (
+        <div>
+          <p>Common grounds accepted under the scheme include:</p>
+          <ul>
+            <li>Deficiency in banking, digital payment, or lending services</li>
+            <li>ATM / debit / credit card disputes</li>
+            <li>Failed or delayed UPI, NEFT, RTGS, or IMPS transactions</li>
+            <li>Mis-selling of third-party insurance or investment products</li>
+            <li>Non-adherence to RBI's Fair Practices Code or Digital Lending Guidelines</li>
+          </ul>
+        </div>
+      )
+    },
+    {
+      title: "Disposal Timeline & Process",
+      body: (
+        <div>
+          <p>The Ombudsman office first attempts resolution through conciliation or mediation between you and the entity. If that fails, the Ombudsman may pass a reasoned Award.</p>
+          <ul>
+            <li>Target disposal time: 90 days from the date of filing</li>
+            <li>You will receive updates at each stage — acknowledgment, forwarding to entity, entity response, and review</li>
+          </ul>
+        </div>
+      )
+    },
+    {
+      title: "Compensation & Awards",
+      body: (
+        <div>
+          <p>Where a complaint is upheld, the Ombudsman may direct the entity to make good the financial loss and, in appropriate cases, pay compensation for the time, expense, and mental agony caused — subject to the limits prescribed under the scheme.</p>
+          <p style={{ fontSize: 12, color: "var(--text-muted)" }}>Figures shown elsewhere in this prototype (e.g. award amounts) are illustrative only. Refer to the official scheme document on rbi.org.in for current limits.</p>
+        </div>
+      )
+    },
+    {
+      title: "Appeal Process",
+      body: (
+        <div>
+          <p>If you are dissatisfied with the Award or a rejection, you may file an appeal with the Appellate Authority within 30 days of receiving the order (extendable by another 30 days for sufficient cause).</p>
+        </div>
+      )
+    }
+  ];
+
+  return (
+    <div className="page">
+      <h2 style={{ marginBottom: 6 }}>Rules & Regulations</h2>
+      <p className="rules-intro">
+        A plain-language summary of how the RBI Integrated Ombudsman Scheme resolves disputes between customers and regulated entities. This page is illustrative content for the prototype — refer to rbi.org.in for the official, current scheme text.
+      </p>
+
+      <h3 className="section-title">About the Scheme</h3>
+      <div className="info-grid">
+        <div className="info-card">
+          <div className="icn">📘</div>
+          <h4>RBI Integrated Ombudsman Scheme</h4>
+          <p>A single, cost-free grievance redressal mechanism covering banks, NBFCs, payment system participants, and credit information companies.</p>
+        </div>
+        <div className="info-card">
+          <div className="icn">✅</div>
+          <h4>Entities Covered</h4>
+          <p>Scheduled commercial banks, co-operative banks, NBFCs, UPI apps and wallets, prepaid card issuers, and credit information companies.</p>
+        </div>
+        <div className="info-card">
+          <div className="icn">🚫</div>
+          <h4>Entities Not Covered</h4>
+          <p>Entities not regulated by the RBI, matters sub judice, and disputes over an entity's commercial lending judgment.</p>
+        </div>
+        <div className="info-card">
+          <div className="icn">📍</div>
+          <h4>Centralised Receipt Centre</h4>
+          <p>4th Floor, Sector 17, Chandigarh — 160017 (illustrative address for this prototype).</p>
+        </div>
+      </div>
+
+      <h3 className="section-title">Key Rules</h3>
+      <div className="accordion">
+        {sections.map((s, i) => (
+          <div className="accordion-item" key={s.title}>
+            <button className="accordion-head" onClick={() => setOpenIdx(openIdx === i ? -1 : i)}>
+              {s.title}
+              <span className="chev">{openIdx === i ? "▲" : "▼"}</span>
+            </button>
+            {openIdx === i && <div className="accordion-body">{s.body}</div>}
+          </div>
+        ))}
+      </div>
+
+      <h3 className="section-title">Assistance</h3>
+      <div className="assist-grid">
+        <div className="assist-card">
+          <div className="thumb">📝</div>
+          <div className="cap">How to file a Complaint?</div>
+        </div>
+        <div className="assist-card">
+          <div className="thumb">🔍</div>
+          <div className="cap">How to track your complaint?</div>
+        </div>
+        <div className="assist-card">
+          <div className="thumb">⚖️</div>
+          <div className="cap">How to file an appeal?</div>
+        </div>
+      </div>
+
+      <h3 className="section-title">Education & Awareness Material</h3>
+      <ul className="material-list">
+        <li><span className="ico">📄</span> Modus Operandi of Common Financial Frauds</li>
+        <li><span className="ico">📄</span> How to Spot Fake Banking Websites and Apps</li>
+        <li><span className="ico">📄</span> Recognizing Fraudulent Recruitment & Loan Offers</li>
+        <li><span className="ico">📄</span> Safe Practices for Digital & UPI Payments</li>
+      </ul>
+    </div>
+  );
+}
+
 function App() {
   const [view, setView] = useState("login");
   const [aadhar, setAadhar] = useState("");
   const [selected, setSelected] = useState(null);
+  const [complaints, setComplaints] = useState(INITIAL_COMPLAINTS);
 
   function handleLogin(a) {
     setAadhar(a);
@@ -628,14 +1130,24 @@ function App() {
     setSelected(null);
     setView("dashboard");
   }
+  function goTo(key) {
+    setSelected(null);
+    setView(key);
+  }
+  function handleNewComplaintSubmitted(newComplaint) {
+    setComplaints((prev) => [newComplaint, ...prev]);
+  }
 
   return (
     <div>
       <div className="demo-ribbon">UX PROTOTYPE — NOT AN OFFICIAL RBI WEBSITE — ALL DATA IS FICTITIOUS</div>
       <TopBar view={view} aadhar={aadhar} onLogout={handleLogout} />
+      {view !== "login" && <SecondaryNav view={view} onNavigate={goTo} />}
       {view === "login" && <LoginPage onLogin={handleLogin} />}
-      {view === "dashboard" && <Dashboard aadhar={aadhar} onOpen={openComplaint} />}
+      {view === "dashboard" && <Dashboard aadhar={aadhar} complaints={complaints} onOpen={openComplaint} onNewComplaint={() => goTo("new-complaint")} />}
       {view === "detail" && selected && <ComplaintDetail complaint={selected} onBack={backToDashboard} />}
+      {view === "new-complaint" && <NewComplaintForm aadhar={aadhar} onSubmitted={handleNewComplaintSubmitted} onCancel={backToDashboard} />}
+      {view === "rules" && <RulesPage />}
       <footer className="site-footer">Clickable UX prototype for stakeholder review · Not affiliated with RBI, UIDAI or DigiLocker · All complaint data is fictitious</footer>
     </div>
   );
