@@ -398,14 +398,102 @@
   .accordion-body li { margin-bottom: 4px; }
 
   .assist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
-  .assist-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .assist-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden; display: block; text-decoration: none; color: inherit; transition: box-shadow 0.15s; }
+  .assist-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
   .assist-card .thumb { height: 100px; background: linear-gradient(135deg, var(--brand), var(--brand-dark)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 26px; }
   .assist-card .cap { padding: 10px 12px; font-size: 12px; font-weight: 500; }
 
   .material-list { list-style: none; padding: 0; margin: 0; background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; }
-  .material-list li { display: flex; align-items: center; gap: 10px; padding: 12px 16px; font-size: 13px; }
+  .material-list li { padding: 0; font-size: 13px; }
   .material-list li + li { border-top: 0.5px solid var(--border); }
+  .material-list li a { display: flex; align-items: center; gap: 10px; padding: 12px 16px; color: inherit; text-decoration: none; }
+  .material-list li a:hover { background: var(--surface-2); }
   .material-list .ico { color: var(--accent); font-size: 14px; }
+
+  /* ---------- India-themed Landing Page ---------- */
+  .tricolor-strip {
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(to right, #FF9933 0%, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%);
+  }
+
+  .gov-utility-bar {
+    background: var(--brand-dark);
+    color: #d8e3f2;
+    font-size: 11px;
+    padding: 6px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .gov-utility-bar a { color: #d8e3f2; text-decoration: none; margin-right: 16px; }
+  .gov-utility-bar a:hover { text-decoration: underline; }
+  .gov-utility-bar select {
+    background: var(--brand-dark);
+    color: #fff;
+    border: 1px solid #ffffff44;
+    border-radius: 3px;
+    font-size: 11px;
+    padding: 2px 6px;
+    margin: 0;
+  }
+
+  .topbar .brand { cursor: pointer; }
+
+  .safety-bar {
+    background: #fff;
+    color: #b3261e;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .hero { display: flex; flex-wrap: wrap; min-height: 400px; }
+  .hero-left {
+    flex: 1 1 320px;
+    background: var(--brand);
+    color: #fff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+  .hero-left .eyebrow { opacity: 0.85; font-size: 13px; margin-bottom: 2px; }
+  .hero-left h2 { font-size: 24px; margin-bottom: 12px; }
+  .btn-hero-primary, .btn-hero-secondary {
+    border: none;
+    border-radius: 6px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    max-width: 340px;
+  }
+  .btn-hero-primary { background: var(--accent); color: #fff; }
+  .btn-hero-primary:hover { background: #a94f09; }
+  .btn-hero-secondary { background: #ffffff18; color: #fff; border: 1px solid #ffffff33; font-weight: 600; font-size: 14px; padding: 12px 20px; }
+  .btn-hero-secondary:hover { background: #ffffff2a; }
+
+  .hero-right {
+    flex: 1 1 280px;
+    background: radial-gradient(circle at 65% 35%, #0f3f7d, #051c3d 75%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+  }
+
+  .landing-section { max-width: 1040px; margin: 0 auto; padding: 34px 20px; }
+
+  .feedback-panel { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 20px; }
+  .feedback-panel label { margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -514,6 +602,46 @@ function generateCRN() {
   return "CMS-2026-07-" + n;
 }
 
+const ASSIST_ITEMS = [
+  { icon: "📝", title: "How to file a Complaint?", href: "https://cms.rbi.org.in/" },
+  { icon: "🔍", title: "How to track your complaint?", href: "https://cms.rbi.org.in/" },
+  { icon: "⚖️", title: "How to file an appeal?", href: "https://cms.rbi.org.in/" }
+];
+
+const MATERIAL_ITEMS = [
+  { title: "Modus Operandi of Common Financial Frauds", href: "https://rbidocs.rbi.org.in/rdocs/content/pdfs/BEAWARE07032022.pdf" },
+  { title: "How to Spot Fake Banking Websites and Apps", href: "https://www.rbi.org.in/commonman/english/Scripts/PressReleases.aspx?Id=2440" },
+  { title: "Recognizing Fraudulent Recruitment & Loan Offers", href: "https://www.rbi.org.in/commonman/english/scripts/rbicautions.aspx" },
+  { title: "Safe Practices for Digital & UPI Payments", href: "https://www.rbi.org.in/commonman/English/scripts/rbikehtahai.aspx" }
+];
+
+function AssistGrid() {
+  return (
+    <div className="assist-grid">
+      {ASSIST_ITEMS.map((item) => (
+        <a className="assist-card" key={item.title} href={item.href} target="_blank" rel="noopener noreferrer">
+          <div className="thumb">{item.icon}</div>
+          <div className="cap">{item.title}</div>
+        </a>
+      ))}
+    </div>
+  );
+}
+
+function MaterialList() {
+  return (
+    <ul className="material-list">
+      {MATERIAL_ITEMS.map((item) => (
+        <li key={item.title}>
+          <a href={item.href} target="_blank" rel="noopener noreferrer">
+            <span className="ico">📄</span> {item.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function maskAadhar(a) {
   return "XXXX-XXXX-" + a.slice(-4).padStart(4, "0");
 }
@@ -529,21 +657,23 @@ function badgeLabel(stage) {
   return "In Progress";
 }
 
-function TopBar({ view, aadhar, onLogout }) {
+function TopBar({ view, aadhar, onLogout, onLogin, onHome }) {
   return (
     <div className="topbar">
-      <div className="brand">
+      <div className="brand" onClick={onHome}>
         <div className="emblem">CMS</div>
         <div className="titles">
           <h1>Complaint Management System</h1>
           <p>Integrated Ombudsman Scheme — UX Prototype</p>
         </div>
       </div>
-      {view !== "login" && (
+      {aadhar ? (
         <div className="session">
           <span>Aadhar: {maskAadhar(aadhar)}</span>
           <button className="btn btn-ghost" onClick={onLogout}>Logout</button>
         </div>
+      ) : (
+        view !== "login" && <button className="btn btn-ghost" onClick={onLogin}>Login</button>
       )}
     </div>
   );
@@ -973,8 +1103,8 @@ function NewComplaintForm({ aadhar, onSubmitted, onCancel }) {
   );
 }
 
-function RulesPage() {
-  const [openIdx, setOpenIdx] = useState(0);
+function RulesPage({ initialOpenIndex }) {
+  const [openIdx, setOpenIdx] = useState(initialOpenIndex != null ? initialOpenIndex : 0);
 
   const sections = [
     {
@@ -1081,46 +1211,116 @@ function RulesPage() {
       </div>
 
       <h3 className="section-title">Assistance</h3>
-      <div className="assist-grid">
-        <div className="assist-card">
-          <div className="thumb">📝</div>
-          <div className="cap">How to file a Complaint?</div>
+      <AssistGrid />
+
+      <h3 className="section-title">Education & Awareness Material</h3>
+      <MaterialList />
+    </div>
+  );
+}
+
+function LandingPage({ onFileComplaint, onTrackComplaint, onFileAppeal, onViewRules }) {
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [feedbackSent, setFeedbackSent] = useState(false);
+
+  function submitFeedback(e) {
+    e.preventDefault();
+    setFeedbackSent(true);
+  }
+
+  return (
+    <div>
+      <div className="gov-utility-bar">
+        <div>
+          <a href="#main-content">Skip to Main Content</a>
+          <a href="#main-content">Screen Reader Access</a>
         </div>
-        <div className="assist-card">
-          <div className="thumb">🔍</div>
-          <div className="cap">How to track your complaint?</div>
-        </div>
-        <div className="assist-card">
-          <div className="thumb">⚖️</div>
-          <div className="cap">How to file an appeal?</div>
+        <div>
+          <label style={{ marginRight: 6 }}>Select Language</label>
+          <select defaultValue="en">
+            <option value="en">English (Auto)</option>
+            <option value="hi">हिन्दी</option>
+          </select>
         </div>
       </div>
 
-      <h3 className="section-title">Education & Awareness Material</h3>
-      <ul className="material-list">
-        <li><span className="ico">📄</span> Modus Operandi of Common Financial Frauds</li>
-        <li><span className="ico">📄</span> How to Spot Fake Banking Websites and Apps</li>
-        <li><span className="ico">📄</span> Recognizing Fraudulent Recruitment & Loan Offers</li>
-        <li><span className="ico">📄</span> Safe Practices for Digital & UPI Payments</li>
-      </ul>
+      <div className="safety-bar">Do not store important banking data in your mobile, email, or wallet</div>
+
+      <div className="hero" id="main-content">
+        <div className="hero-left">
+          <p className="eyebrow">Welcome to the Reserve Bank — Integrated Ombudsman Scheme (Prototype)</p>
+          <h2>Complaint Management System</h2>
+          <button className="btn-hero-primary" onClick={onFileComplaint}>File a Complaint</button>
+          <button className="btn-hero-secondary" onClick={onTrackComplaint}>Track Your Complaint</button>
+          <button className="btn-hero-secondary" onClick={onFileAppeal}>File an Appeal</button>
+          <button className="btn-hero-secondary" onClick={() => setShowFeedback((v) => !v)}>Feedback</button>
+        </div>
+        <div className="hero-right">
+          <svg viewBox="0 0 200 200" width="220" height="220">
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#ffffff55" strokeWidth="3" />
+            <circle cx="100" cy="100" r="60" fill="none" stroke="#ffffff33" strokeWidth="1.5" />
+            <circle cx="100" cy="100" r="7" fill="#ffffff99" />
+            {Array.from({ length: 24 }).map((_, i) => {
+              const angle = (i * 15 * Math.PI) / 180;
+              const x2 = 100 + 90 * Math.cos(angle);
+              const y2 = 100 + 90 * Math.sin(angle);
+              return <line key={i} x1="100" y1="100" x2={x2} y2={y2} stroke="#ffffff2a" strokeWidth="1.5" />;
+            })}
+          </svg>
+        </div>
+      </div>
+
+      {showFeedback && (
+        <div className="landing-section" style={{ paddingBottom: 0 }}>
+          <div className="feedback-panel">
+            {feedbackSent ? (
+              <p style={{ color: "var(--success)", fontWeight: 600, margin: 0 }}>Thank you — your feedback has been recorded (demo only, nothing is sent anywhere).</p>
+            ) : (
+              <form onSubmit={submitFeedback}>
+                <label>Share feedback about this portal</label>
+                <textarea value={feedbackText} onChange={(e) => setFeedbackText(e.target.value)} placeholder="Your feedback..."></textarea>
+                <div className="form-actions">
+                  <button type="submit" className="btn btn-primary">Submit Feedback</button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
+      <div className="landing-section">
+        <h3 className="section-title" style={{ marginTop: 0 }}>Assistance</h3>
+        <AssistGrid />
+
+        <h3 className="section-title">Education & Awareness Material</h3>
+        <MaterialList />
+
+        <div style={{ marginTop: 20 }}>
+          <button className="btn-link" onClick={onViewRules}>View full Rules & Regulations →</button>
+        </div>
+      </div>
     </div>
   );
 }
 
 function App() {
-  const [view, setView] = useState("login");
+  const [view, setView] = useState("landing");
   const [aadhar, setAadhar] = useState("");
   const [selected, setSelected] = useState(null);
   const [complaints, setComplaints] = useState(INITIAL_COMPLAINTS);
+  const [pendingView, setPendingView] = useState(null);
+  const [rulesFocusIndex, setRulesFocusIndex] = useState(0);
 
   function handleLogin(a) {
     setAadhar(a);
-    setView("dashboard");
+    setView(pendingView || "dashboard");
+    setPendingView(null);
   }
   function handleLogout() {
     setAadhar("");
     setSelected(null);
-    setView("login");
+    setView("landing");
   }
   function openComplaint(c) {
     setSelected(c);
@@ -1134,20 +1334,51 @@ function App() {
     setSelected(null);
     setView(key);
   }
+  function goHome() {
+    setSelected(null);
+    setView("landing");
+  }
+  function goToLogin() {
+    setPendingView(null);
+    setView("login");
+  }
+  function goProtected(target) {
+    setSelected(null);
+    if (aadhar) {
+      setView(target);
+    } else {
+      setPendingView(target);
+      setView("login");
+    }
+  }
+  function goToRules(idx) {
+    setRulesFocusIndex(idx == null ? 0 : idx);
+    setSelected(null);
+    setView("rules");
+  }
   function handleNewComplaintSubmitted(newComplaint) {
     setComplaints((prev) => [newComplaint, ...prev]);
   }
 
   return (
     <div>
+      <div className="tricolor-strip"></div>
       <div className="demo-ribbon">UX PROTOTYPE — NOT AN OFFICIAL RBI WEBSITE — ALL DATA IS FICTITIOUS</div>
-      <TopBar view={view} aadhar={aadhar} onLogout={handleLogout} />
-      {view !== "login" && <SecondaryNav view={view} onNavigate={goTo} />}
+      <TopBar view={view} aadhar={aadhar} onLogout={handleLogout} onLogin={goToLogin} onHome={goHome} />
+      {aadhar && view !== "login" && view !== "landing" && <SecondaryNav view={view} onNavigate={goTo} />}
+      {view === "landing" && (
+        <LandingPage
+          onFileComplaint={() => goProtected("new-complaint")}
+          onTrackComplaint={() => goProtected("dashboard")}
+          onFileAppeal={() => goToRules(4)}
+          onViewRules={() => goToRules(0)}
+        />
+      )}
       {view === "login" && <LoginPage onLogin={handleLogin} />}
       {view === "dashboard" && <Dashboard aadhar={aadhar} complaints={complaints} onOpen={openComplaint} onNewComplaint={() => goTo("new-complaint")} />}
       {view === "detail" && selected && <ComplaintDetail complaint={selected} onBack={backToDashboard} />}
       {view === "new-complaint" && <NewComplaintForm aadhar={aadhar} onSubmitted={handleNewComplaintSubmitted} onCancel={backToDashboard} />}
-      {view === "rules" && <RulesPage />}
+      {view === "rules" && <RulesPage initialOpenIndex={rulesFocusIndex} />}
       <footer className="site-footer">Clickable UX prototype for stakeholder review · Not affiliated with RBI, UIDAI or DigiLocker · All complaint data is fictitious</footer>
     </div>
   );
